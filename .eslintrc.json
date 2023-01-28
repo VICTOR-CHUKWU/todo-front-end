@@ -1,0 +1,46 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true,
+    "jest": true
+  },
+  "parser": "@babel/eslint-parser",
+  "parserOptions": {
+    // "ecmaFeatures": {
+    //   "jsx": true
+    // },
+    "ecmaVersion": 8,
+    "sourceType": "module"
+  },
+  "extends": ["plugin:react/recommended"],
+  "plugins": ["react"],
+  "rules": {
+    "react/prop-types": "off",
+    "react/no-children-prop": "off",
+    // No need to import React when using Next.js
+    "react/react-in-jsx-scope": "off",
+
+    // This rule is not compatible with Next.js's <Link /> components
+    "jsx-a11y/anchor-is-valid": "off",
+
+    // Why would you want unused vars?
+    "@typescript-eslint/no-unused-vars": ["off"],
+
+    "@typescript-eslint/no-non-null-assertion": "off",
+
+    "@typescript-eslint/no-explicit-any": "off",
+
+    // I suggest this setting for requiring return types on functions only where useful
+    "@typescript-eslint/explicit-function-return-type": [
+      "off",
+      {
+        "allowExpressions": true,
+        "allowConciseArrowFunctionExpressionsStartingWithVoid": true
+      }
+    ]
+  },
+  "ignorePatterns": [
+    "dist/",
+    "build/"
+  ]
+}
