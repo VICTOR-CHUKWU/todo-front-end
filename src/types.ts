@@ -5,7 +5,7 @@ export interface formdata {
 }
 
 export interface Task {
-    id: String;
+    id: string;
     title: String;
     completed: boolean;
 }

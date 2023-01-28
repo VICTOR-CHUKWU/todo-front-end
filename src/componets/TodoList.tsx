@@ -7,11 +7,12 @@ import TodoListItem from './TodoListItem';
 
 const TodoList = () => {
     const todoList = useSelector((state: RootState) => state.todos);
+    console.log(todoList, 'listss');
+
     const dispatch = useDispatch<AppDispatch>();
 
     useEffect(() => {
         dispatch(fetchTodos());
-        console.log('disptached');
     }, [dispatch])
 
 
@@ -21,8 +22,8 @@ const TodoList = () => {
     return (
         <section data-testid='todo-list' className='todo-list-container'>
             {
-                todoList.map((todo: Task) => (
-                    <TodoListItem key={todo.id as string} todo={todo as Task} />
+                todoList.map((todo: Task, i) => (
+                    <TodoListItem key={todo.id} todo={todo as Task} />
                 ))
             }
         </section>

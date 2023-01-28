@@ -10,10 +10,11 @@ const TodoListItem = ({ todo }: { todo: Task }) => {
     const [title, setInputText] = useState('');
     const dispatch = useDispatch<AppDispatch>();
 
-    const deleteTodd = (id: String) => {
+    const deleteTodd = (id: string) => {
+        console.log(id, 'polio-id');
         setIsDelete(true)
         setTimeout(() => {
-            dispatch(deleteTodo(todo.id as string))
+            dispatch(deleteTodo(id))
         }, 1500);
     }
 
@@ -53,7 +54,7 @@ const TodoListItem = ({ todo }: { todo: Task }) => {
             </span>
             <span className='flex'>
                 <button type="button" onClick={() => editTodo(todo.title as string)} className='mr-2'>edit</button>
-                <button type="button" onClick={() => deleteTodd(todo.id as String)}>Delete</button>
+                <button type="button" onClick={() => deleteTodd(todo.id as string)}>Delete</button>
             </span>
             <form onSubmit={handleSubmit} className={`${isEdit ? 'form-container-list' : 'form-hidden'}`}>
                 <input type="text" placeholder="Add Todo..." value={title} onChange={onChange} className="input-text" />

@@ -15,9 +15,8 @@ export const fetchTodos = createAsyncThunk("fetch_todo", async () => {
         },
     });
     const Data = await resp.json();
-    console.log(Data, "respoo");
-
-    return Data;
+    const data = Data.sort((a: Task, b: Task) => Number(a.id) - Number(b.id))
+    return data;
 });
 
 export const addNewTodo = createAsyncThunk("add_todo", async (todo: string) => {
@@ -99,9 +98,9 @@ const todoSlice = createSlice({
                 ...state,
                 todos: [...action.payload],
             }))
-            .addCase(addNewTodo.fulfilled, (state, action: PayloadAction<any>) => {
-                state.todos.push(action.payload);
-            })
+            // .addCase(addNewTodo.fulfilled, (state, action: PayloadAction<any>) => {
+            //     state.todos.push(action.payload);
+            // })
             .addCase(deleteTodo.fulfilled, (state, action: PayloadAction<string>) => {
                 const index = state.todos.findIndex(
                     (todo) => todo.id === action.payload
