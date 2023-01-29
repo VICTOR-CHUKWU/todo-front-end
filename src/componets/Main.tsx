@@ -7,7 +7,8 @@ import { getToken } from "../utils";
 const Main = () => {
     let navigate = useNavigate();
     useEffect(() => {
-        if (!getToken) {
+        const token = getToken()
+        if (!token) {
             navigate("/login");
         }
     }, []);

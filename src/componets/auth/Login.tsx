@@ -26,7 +26,7 @@ const Login = () => {
         if (formdata.email && formdata.password && formdata.username) {
             signIn(formdata)
                 .then((res) => {
-                    return res.json()
+                    return res.data
                 }).then((respo) => {
                     if (respo.accessToken) {
                         console.log(respo, 'respo');

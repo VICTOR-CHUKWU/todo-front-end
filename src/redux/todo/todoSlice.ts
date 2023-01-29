@@ -1,20 +1,12 @@
 import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
-import { getToken } from "../../utils";
+import { todoAdd, todoGet, todoRemove, todoUpdate } from "../../services/todo.service";
 import { Task, UsersState } from "../../types";
 
 
 
-const BASE_URL = `http://localhost:3001/api/v1/todos`;
-const token: string = getToken() as string
-
 export const fetchTodos = createAsyncThunk("fetch_todo", async () => {
-    const resp = await fetch(BASE_URL, {
-        headers: {
-            "Content-Type": "application/json",
-            "x-access-token": token
-        },
-    });
-    const Data = await resp.json();
+    const resp = await todoGet()
+    const Data = resp.data;
     const data = Data.sort((a: Task, b: Task) => Number(a.id) - Number(b.id))
     return data;
 });
@@ -25,29 +17,14 @@ export const addNewTodo = createAsyncThunk("add_todo", async (todo: string) => {
         title: todo,
         completed: false,
     };
-    await fetch(BASE_URL, {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-            "x-access-token": token
-        },
-        body: JSON.stringify({
-            ...newTodo,
-        }),
-    });
+    await todoAdd(todo)
     return newTodo;
 });
 
 export const deleteTodo = createAsyncThunk(
     "remove_todo",
     async (id: string) => {
-        await fetch(`${BASE_URL}/${id}`, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-                "x-access-token": token
-            },
-        });
+        await todoRemove(id)
         return id;
     }
 );
@@ -66,18 +43,10 @@ export const updateTodo = createAsyncThunk(
         const newTodo = {
             title: name,
             completed,
+            id
         };
-        await fetch(`${BASE_URL}/${id}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-                "x-access-token": token
-            },
-            body: JSON.stringify({
-                ...newTodo,
-            }),
-        });
-        return { ...newTodo, id };
+        await todoUpdate(newTodo)
+        return newTodo;
     }
 );
 

@@ -26,7 +26,7 @@ const SignUp = () => {
         if (formdata.email && formdata.password && formdata.username) {
             signUp(formdata)
                 .then((res) => {
-                    return res.json()
+                    return res.data
                 }).then((respo) => {
                     console.log(respo, 'respo');
                     if (respo.accessToken) {
