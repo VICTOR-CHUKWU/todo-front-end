@@ -7,7 +7,8 @@ import { getToken } from "../utils";
 const Main = () => {
     let navigate = useNavigate();
     useEffect(() => {
-        const token = getToken()
+        const token = getToken();
+        console.log(token, 'poplio')
         if (!token) {
             navigate("/login");
         }
